@@ -13,8 +13,11 @@ function setup() {
 
     wallBot = new Sprite(400, 800, 800, 25, 'k');
 
-cube = new Sprite(750, 750, 150, 150, 'd')
-cube.color='eef3f5'
+player = new Sprite(725, 725, 150, 150,'d')
+player.color='eef3f5'
+player.rotationlock = true;
+platform_1 = new Sprite(400, 400, 450, 10, 's');
+platform_1.friction = 0;
 
 
 }
@@ -23,25 +26,29 @@ function draw() {
     background(255, 100, 100);
 
 
-    //movement making it to one side very quickly.
-if (kb.pressing('left')){
+    //movement making it to one side very quickly and not go diagonal.
 
-    cube.vel.x= -80;
+    player.vel.x = 0;
+    player.vel.y = 0;
+ if (kb.pressing('up')){
+
+    player.vel.y= -250;
+ }
+
+else if (kb.pressing('down')){
+
+  player.vel.y= 250;
+}
+
+
+else if (kb.pressing('left')){
+
+  player.vel.x= -250;
 }
 else if (kb.pressing ('right')) {
 
-   cube.vel.x= 80;
+  player.vel.x= 250;
 
-};
-if (kb.released('left')) {
-
-    // Set sprite's velocity to zero
- cube.vel.x= 0;
 }
-if (kb.released('right')){
-
-    cube.vel.x= 0;
-}
- 
 
 }
