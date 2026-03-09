@@ -40,7 +40,7 @@ platform_1.bounciness = 0;
   function func2call(_ssss, _player){
     _ssss.remove();
 
-    box_2 = new Sprite(50, 750, 50, 50, 'k')
+    box_2 = new Sprite(30, 630, 50, 50, 'k')
     box_2.bounciness =0;
      box_2.collides(player, func3call);
   function func3call(_ssss, _player){
