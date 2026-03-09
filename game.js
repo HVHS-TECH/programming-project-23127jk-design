@@ -30,9 +30,24 @@ platform_1.bounciness = 0;
   wallRH_2.bounciness=0;
   platform_3 = new Sprite(200, 600, 450, 10, 'k')
   platform_3.bounciness = 0;
-  platform_4 = new Sprite(735, 600, 100, 10, 'k')
+  platform_4 = new Sprite(737, 600, 100, 10, 'k')
   platform_4.bounciness= 0;
   platform_4.drag =0;
+
+  box = new Sprite(765, 170, 50, 50,'k')
+  box.bounciness = 0;
+  box.collides(player, func2call);
+  function func2call(_ssss, _player){
+    _ssss.remove();
+
+    box_2 = new Sprite(50, 750, 50, 50, 'k')
+    box_2.bounciness =0;
+     box_2.collides(player, func3call);
+  function func3call(_ssss, _player){
+    _ssss.remove();
+
+  }
+}
 }
 
 function draw() {
@@ -41,28 +56,28 @@ function draw() {
  // player.vel.x = 0;
  // player.vel.y = 0;
  if (kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left') && !kb.pressing('right')) {
-    player.vel.y = -50;
+    player.vel.y = -40;
   }
   else if(kb.released('up')){
-    player.vel.y = -50
+    player.vel.y = -40
   }
 if (kb.pressing('down') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('left')) {
-    player.vel.y = 50;
+    player.vel.y = 40;
   }
  else if (kb.released('down')){
-    player.vel.y = 50;
+    player.vel.y = 40;
   }
   if (kb.pressing('left') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('down')) {
-    player.vel.x = -50;
+    player.vel.x = -40;
   }
   else if (kb.released('left')){
-player.vel.x = -50;
+player.vel.x = -40;
   }
 if (kb.pressing('right') && !kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left')) {
-    player.vel.x = 50;
+    player.vel.x = 40;
   }
   else if (kb.released('right')){
-    player.vel.x= 50;
+    player.vel.x= 40;
   }
   
 }
