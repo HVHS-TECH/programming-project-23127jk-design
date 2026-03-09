@@ -51,7 +51,8 @@ platform_1.bounciness = 0;
 }
 
 function draw() {
-  background(255, 100, 100);
+  background('rgb(0, 0, 0)');
+
   //movement making it to one side very quickly and not go diagonal.
  // player.vel.x = 0;
  // player.vel.y = 0;
