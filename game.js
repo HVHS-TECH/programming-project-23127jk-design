@@ -13,41 +13,61 @@ function setup() {
   wallBot = new Sprite(400, 800, 800, 25, 'k');
 wallBot.bounciness=0;
 
-  player = new Sprite(755, 755, 65, 65, 'd')
-  player.color = 'eef3f5'
+  player = new Sprite(755, 755, 65, 65, 'd');
+  player.color = 'eef3f5';
   player.friction = 0;
     player.bounciness= 0;
   //
   player.collider = 'dynamic';
   player.rotationlock = true;
   //
+  //end goal is the portal
+ portal = new Sprite(760, 168, 60, 60, 'k');
+ portal.bounciness = 0;
+
   platform_1 = new Sprite(400, 400, 425, 10, 'k');
   platform_1.friction = 0;
 platform_1.bounciness = 0;
-  platform_2 = new Sprite(600, 200, 450, 10, 'k')
+  platform_2 = new Sprite(600, 200, 450, 10, 'k');
   platform_2.bounciness= 0;
-  wallRH_2 = new Sprite(600, 700, 25, 600, 'k')
+  wallRH_2 = new Sprite(600, 700, 25, 600, 'k');
   wallRH_2.bounciness=0;
-  platform_3 = new Sprite(200, 600, 450, 10, 'k')
+  platform_3 = new Sprite(200, 600, 450, 10, 'k');
   platform_3.bounciness = 0;
-  platform_4 = new Sprite(737, 600, 100, 10, 'k')
+  platform_4 = new Sprite(737, 600, 100, 10, 'k');
   platform_4.bounciness= 0;
   platform_4.drag =0;
 
-  box = new Sprite(765, 170, 50, 50,'k')
+  box = new Sprite(760, 568, 50, 50,'k');
   box.bounciness = 0;
+  box.color = '56be5b';
   box.collides(player, func2call);
   function func2call(_ssss, _player){
     _ssss.remove();
-
-    box_2 = new Sprite(30, 630, 50, 50, 'k')
+  }
+    box_2 = new Sprite(30, 630, 50, 50, 'k');
     box_2.bounciness =0;
+    box_2.color = '56be5b';
      box_2.collides(player, func3call);
   function func3call(_ssss, _player){
     _ssss.remove();
-
-  }
 }
+box_3 = new Sprite(563, 430, 50, 50, 'k');
+box_3.bounciness = 0;
+box_3.color = '56be5b';
+box_3.collides(player, func4call);
+function func4call(_ssss, _player){
+  _ssss.remove();
+}
+ //if ( portal.colliding(player) ){
+//gameState = 2;
+//console.log(gameState);
+//}
+ player.collides(portal, func5call);
+ function func5call(_ssss, _portal){
+  _ssss.remove();
+ }
+ 
 }
 
 function draw() {
@@ -59,27 +79,18 @@ function draw() {
  if (kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left') && !kb.pressing('right')) {
     player.vel.y = -40;
   }
-  else if(kb.released('up')){
-    player.vel.y = -40
-  }
+
 if (kb.pressing('down') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('left')) {
     player.vel.y = 40;
   }
- else if (kb.released('down')){
-    player.vel.y = 40;
-  }
+
+  
   if (kb.pressing('left') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('down')) {
     player.vel.x = -40;
   }
-  else if (kb.released('left')){
-player.vel.x = -40;
-  }
+
 if (kb.pressing('right') && !kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left')) {
     player.vel.x = 40;
   }
-  else if (kb.released('right')){
-    player.vel.x= 40;
-  }
-  
-}
 
+}
