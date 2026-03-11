@@ -17,10 +17,9 @@ wallBot.bounciness=0;
   player.color = 'eef3f5';
   player.friction = 0;
     player.bounciness= 0;
-  //
+  //this should make the player not spin when colliding with certain platforms or walls.
   player.collider = 'dynamic';
   player.rotationlock = true;
-  //
   //end goal is the portal
  portal = new Sprite(760, 168, 60, 60, 'k');
  portal.bounciness = 0;
@@ -38,6 +37,7 @@ platform_1.bounciness = 0;
   platform_4.bounciness= 0;
   platform_4.drag =0;
 
+  //the stars that get collected when player collides with the stars
   box = new Sprite(760, 568, 50, 50,'k');
   box.bounciness = 0;
   box.color = '56be5b';
@@ -67,7 +67,9 @@ function func4call(_ssss, _player){
  function func5call(_ssss, _portal){
   _ssss.remove();
  }
+ //score on how many "star" you have collected
  
+
 }
 
 function draw() {
@@ -92,5 +94,5 @@ if (kb.pressing('down') && !kb.pressing('up') && !kb.pressing('right') && !kb.pr
 if (kb.pressing('right') && !kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left')) {
     player.vel.x = 40;
   }
-
-}
+  
+} 
