@@ -108,5 +108,5 @@ function draw() {
 
   var name = " player";
   text("welcome"+ name, 100, 30);
-  text("the arrow keys are your movements and collect the cubes", 400, 30)
+  text("the arrow keys are your movements", 400, 30)
 } 
