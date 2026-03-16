@@ -1,12 +1,10 @@
 
 let score = 0;
-
+let win = 0;
 function setup() {
   cnv = new Canvas(800, 800);
   console.log("setup:");
   //world.gravity.y = 10;
-
-
   wallLH = new Sprite(0, height / 2, 8, height, 'k');
   wallLH.color = 'black';
   wallLH.bounciness = 0;
@@ -28,20 +26,19 @@ function setup() {
   portal = new Sprite(760, 168, 60, 60, 'k');
   portal.bounciness = 0;
 
-  platform_1 = new Sprite(400, 400, 425, 10, 'k');
+  platform_1 = new Sprite(380, 400, 600, 10, 'k');
   platform_1.friction = 0;
   platform_1.bounciness = 0;
-  platform_2 = new Sprite(600, 200, 450, 10, 'k');
+  platform_2 = new Sprite(600, 200, 800, 10, 'k');
   platform_2.bounciness = 0;
   wallRH_2 = new Sprite(600, 700, 25, 600, 'k');
   wallRH_2.bounciness = 0;
-  platform_3 = new Sprite(200, 600, 450, 10, 'k');
+  platform_3 = new Sprite(200, 600, 630, 10, 'k');
   platform_3.bounciness = 0;
   platform_4 = new Sprite(737, 600, 100, 10, 'k');
   platform_4.bounciness = 0;
   platform_4.drag = 0;
 
-  
   box = new Sprite(760, 568, 50, 50, 'k');
   box.bounciness = 0;
   box.color = '56be5b';
@@ -53,7 +50,6 @@ function setup() {
   box_3 = new Sprite(563, 430, 50, 50, 'k');
   box_3.bounciness = 0;
   box_3.color = '56be5b';
-
   //if ( portal.colliding(player) ){
   //gameState = 2;
   //console.log(gameState);
@@ -63,7 +59,6 @@ function setup() {
   box_2.collides(player, func3call);
   box_3.collides(player, func4call);
   player.collides(portal, func5call);
-
 
 }
 //the stars that get collected when player collides with the stars
@@ -82,6 +77,7 @@ function func4call(_ssss, _player) {
 };
 function func5call(_ssss, _portal) {
   _ssss.remove();
+  win = win + 1;
 };
 
 function draw() {
@@ -105,8 +101,20 @@ function draw() {
   fill(0);
   textSize(20);
   text("score: " + score, 10, 30);
-
+ text("win:" + win, 10, 100);
   var name = " player";
   text("welcome"+ name, 100, 30);
   text("the arrow keys are your movements", 400, 30)
-} 
+
+  //if (player.collides(portal))
+   // if (player.collides(portal)) {
+     // win = 1;
+   // }
+   // if (win = 0){
+    //    text("get the star", 200, 100)
+   // }
+   // else if (win = 1){
+   //     text("you have completed the stage", 200, 100)
+    //}
+
+}
