@@ -4,7 +4,6 @@ let win = 0;
 function setup() {
   cnv = new Canvas(800, 800);
   console.log("setup:");
-  //world.gravity.y = 10;
   wallLH = new Sprite(0, height / 2, 8, height, 'k');
   wallLH.color = 'black';
   wallLH.bounciness = 0;
@@ -50,16 +49,11 @@ function setup() {
   box_3 = new Sprite(563, 430, 50, 50, 'k');
   box_3.bounciness = 0;
   box_3.color = '56be5b';
-  //if ( portal.colliding(player) ){
-  //gameState = 2;
-  //console.log(gameState);
-  //}
 
   box.collides(player, func2call);
   box_2.collides(player, func3call);
   box_3.collides(player, func4call);
   player.collides(portal, func5call);
-
 }
 //the stars that get collected when player collides with the stars
 // this makes the player get the point and the point disappear after player collects it.
@@ -105,16 +99,32 @@ function draw() {
   var name = " player";
   text("welcome"+ name, 100, 30);
   text("the arrow keys are your movements", 400, 30)
-
-  //if (player.collides(portal))
-   // if (player.collides(portal)) {
-     // win = 1;
-   // }
-   // if (win = 0){
-    //    text("get the star", 200, 100)
-   // }
-   // else if (win = 1){
-   //     text("you have completed the stage", 200, 100)
-    //}
-
+//this shows that you complete the stage or skipped points
+     if (player.collides(portal)) {
+      win = 1;
+  }
+ if (win >=1 && score >= 0){
+    fill(0, 0, 0);
+            background(200);
+            textSize(35);
+        text("you skipped the all the stars in the level", 100, 100);
+  }
+  if (win >=1 && score >= 1){
+    fill(0, 0, 0);
+            background(200);
+            textSize(35);
+        text("you have 25% stars in the level", 100, 100);
+  }
+  if (win >=1 && score >= 2){
+    fill(0, 0, 0);
+            background(200);
+            textSize(35);
+        text("you have 55% stars in the level", 100, 100);
+  }
+     if (win >= 1 && score >=3){
+           fill(0, 0, 0);
+            textSize(37);
+               background(200);
+        text("you 100% the level", 100, 100);
+    }  
 }
