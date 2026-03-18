@@ -1,6 +1,8 @@
 
 let score = 0;
 let win = 0;
+let timer = 1;
+let timelimit = 500;
 function setup() {
   cnv = new Canvas(800, 800);
   console.log("setup:");
@@ -15,7 +17,7 @@ function setup() {
   wallBot.bounciness = 0;
 
   player = new Sprite(755, 755, 65, 65, 'd');
-  player.color = 'eef3f5';
+  player.color = 'eef5fs';
   player.friction = 0;
   player.bounciness = 0;
   //this should make the player not spin when colliding with certain platforms or walls.
@@ -99,6 +101,13 @@ function draw() {
   var name = " player";
   text("welcome"+ name, 100, 30);
   text("the arrow keys are your movements", 400, 30)
+text("timer:" + frameCount , 10, 50)
+if (timelimit >= 600){
+  text("time's up", 100,)
+  fill(0, 0, 0);
+   background(200);
+  textSize(35);
+}
 //this shows that you complete the stage or skipped points
      if (player.collides(portal)) {
       win = 1;
