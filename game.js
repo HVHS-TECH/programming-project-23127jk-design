@@ -2,10 +2,20 @@
 let score = 0;
 let win = 0;
 let timer = 1;
-let timelimit = 500;
+let limit = 500;
+let timeUp = false;
+let player;
+//let gamestate = "menu";
+//this makes the timer go up in 1 second
+let secondTimer = 0;
+let intervalID = setInterval(() => {
+  secondTimer = secondTimer + 1;
+},1000); //1000ms timer
+
 function setup() {
   cnv = new Canvas(800, 800);
   console.log("setup:");
+
   wallLH = new Sprite(0, height / 2, 8, height, 'k');
   wallLH.color = 'black';
   wallLH.bounciness = 0;
@@ -101,12 +111,13 @@ function draw() {
   var name = " player";
   text("welcome"+ name, 100, 30);
   text("the arrow keys are your movements", 400, 30)
-text("timer:" + frameCount , 10, 50)
-if (timelimit >= 600){
-  text("time's up", 100,)
+text("timer:" + secondTimer , 10, 50)
+if (secondTimer >=10){
   fill(0, 0, 0);
    background(200);
   textSize(35);
+    text("time's up", 100, 100)
+    
 }
 //this shows that you complete the stage or skipped points
      if (player.collides(portal)) {
@@ -136,4 +147,20 @@ if (timelimit >= 600){
                background(200);
         text("you 100% the level", 100, 100);
     }  
+    //this will stop the sprite from moving
+if (secondTimer >=10){
+  timeUp = true;
+}
+if (timeUp == true){
+  player.collider = 's';
+}
+   // if (gamestate === "menu"){
+     // drewMenu();
+   // }
+    //else if (gamestate === "play"){
+    //  drawGame();
+    //}
+    //else if (gamestate === "gameover"){
+     // drawGameOver();
+   // }
 }
