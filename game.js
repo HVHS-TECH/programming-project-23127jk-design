@@ -5,12 +5,12 @@ let timer = 1;
 let limit = 500;
 let timeUp = false;
 let player;
-//let gamestate = "menu";
+let gamestate = "menu";
 //this makes the timer go up in 1 second
 let secondTimer = 0;
 let intervalID = setInterval(() => {
   secondTimer = secondTimer + 1;
-},1000); //1000ms timer
+}, 1000); //1000ms timer
 
 function setup() {
   cnv = new Canvas(800, 800);
@@ -87,7 +87,7 @@ function func5call(_ssss, _portal) {
 };
 
 function draw() {
-  background('rgb(117, 104, 104)');
+  /*background('rgb(117, 104, 104)');
 
   //movement making it to one side very quickly and not go diagonal.
   // player.vel.x = 0;
@@ -107,60 +107,86 @@ function draw() {
   fill(0);
   textSize(20);
   text("score: " + score, 10, 30);
- text("win:" + win, 10, 100);
+  text("win:" + win, 10, 100);
   var name = " player";
-  text("welcome"+ name, 100, 30);
+  text("welcome" + name, 100, 30);
   text("the arrow keys are your movements", 400, 30)
-text("timer:" + secondTimer , 10, 50)
-if (secondTimer >=10){
-  fill(0, 0, 0);
-   background(200);
-  textSize(35);
+  text("timer:" + secondTimer, 10, 50)
+  if (secondTimer >= 10) {
+    fill(0, 0, 0);
+    background(200);
+    textSize(35);
     text("time's up", 100, 100)
-    
-}
-//this shows that you complete the stage or skipped points
-     if (player.collides(portal)) {
-      win = 1;
+
   }
- if (win >=1 && score >= 0){
+  //this shows that you complete the stage or skipped points
+  if (player.collides(portal)) {
+    win = 1;
+  }
+  if (win >= 1 && score >= 0) {
     fill(0, 0, 0);
-            background(200);
-            textSize(35);
-        text("you skipped the all the stars in the level", 100, 100);
+    background(200);
+    textSize(35);
+    text("you skipped the all the stars in the level", 100, 100);
   }
-  if (win >=1 && score >= 1){
+  if (win >= 1 && score >= 1) {
     fill(0, 0, 0);
-            background(200);
-            textSize(35);
-        text("you have 25% stars in the level", 100, 100);
+    background(200);
+    textSize(35);
+    text("you have 25% stars in the level", 100, 100);
   }
-  if (win >=1 && score >= 2){
+  if (win >= 1 && score >= 2) {
     fill(0, 0, 0);
-            background(200);
-            textSize(35);
-        text("you have 55% stars in the level", 100, 100);
+    background(200);
+    textSize(35);
+    text("you have 75% stars in the level", 100, 100);
   }
-     if (win >= 1 && score >=3){
-           fill(0, 0, 0);
-            textSize(37);
-               background(200);
-        text("you 100% the level", 100, 100);
-    }  
-    //this will stop the sprite from moving
-if (secondTimer >=10){
-  timeUp = true;
+  if (win >= 1 && score >= 3) {
+    fill(0, 0, 0);
+    textSize(37);
+    background(200);
+    text("you 100% the level", 100, 100);
+  }
+  //this will stop the sprite from moving
+  if (secondTimer >= 10) {
+    timeUp = true;
+  }
+  if (timeUp == true) {
+    player.collider = 's';
+  }
+    */
+  if (gamestate === "menu") {
+    drewMenu();
+  }
+  else if (gamestate === "play") {
+    drawGame();
+  }
+  else if (gamestate === "gameover") {
+    drawGameOver();
+  }
 }
-if (timeUp == true){
-  player.collider = 's';
+
+function drewMenu() {
+  fill(0, 0, 0);
+  textSize(37)
+  background('rgb(0,0,0)')
+  if (kb.pressing('space')) {
+    gamestate = "play"
+  }
+  console.log("menu")
+    console.log(gamestate)
+
 }
-   // if (gamestate === "menu"){
-     // drewMenu();
-   // }
-    //else if (gamestate === "play"){
-    //  drawGame();
-    //}
-    //else if (gamestate === "gameover"){
-     // drawGameOver();
-   // }
+function drawGame() {
+  fill(0, 0, 0);
+  textSize(37)
+  background('rgb(179, 62, 62)')
+      if (kb.pressing('e')) {
+    gamestate = "gameover"
+  }
+}
+function drawGameOver() {
+  fill(0, 0, 0);
+  textSize(37)
+  background('rgb(49, 168, 95)')
 }
