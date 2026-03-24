@@ -87,7 +87,7 @@ function func5call(_ssss, _portal) {
 };
 
 function draw() {
-  /*background('rgb(117, 104, 104)');
+  //background('rgb(117, 104, 104)');
 
   //movement making it to one side very quickly and not go diagonal.
   // player.vel.x = 0;
@@ -104,6 +104,7 @@ function draw() {
   if (kb.pressing('right') && !kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left')) {
     player.vel.x = 37;
   }
+
   fill(0);
   textSize(20);
   text("score: " + score, 10, 30);
@@ -117,8 +118,12 @@ function draw() {
     background(200);
     textSize(35);
     text("time's up", 100, 100)
-
   }
+  if (gamestate == "play") {
+  } else {
+    timer = 0;
+  }
+
   //this shows that you complete the stage or skipped points
   if (player.collides(portal)) {
     win = 1;
@@ -154,7 +159,6 @@ function draw() {
   if (timeUp == true) {
     player.collider = 's';
   }
-    */
   if (gamestate === "menu") {
     drewMenu();
   }
@@ -165,28 +169,66 @@ function draw() {
     drawGameOver();
   }
 }
-
 function drewMenu() {
-  fill(0, 0, 0);
-  textSize(37)
-  background('rgb(0,0,0)')
+  background('rgb(49, 168, 95)');
+  player.collider = 's';
   if (kb.pressing('space')) {
-    gamestate = "play"
+    gamestate = "play";
   }
-  console.log("menu")
-    console.log(gamestate)
-
+  console.log("menu");
+  console.log(gamestate);
 }
 function drawGame() {
-  fill(0, 0, 0);
-  textSize(37)
-  background('rgb(179, 62, 62)')
-      if (kb.pressing('e')) {
+  background('rgb(117, 104, 104)');
+   player.collider = 'd'
+  fill(0);
+  textSize(20);
+  text("score: " + score, 10, 30);
+  text("win:" + win, 10, 100);
+  var name = " player";
+  text("welcome" + name, 100, 30);
+  text("the arrow keys are your movements", 400, 30)
+  text("timer:" + secondTimer, 10, 50)
+  if (secondTimer >= 10) {
+    fill(0, 0, 0);
+    background(200);
+    textSize(35);
+    text("time's up", 100, 100);
+  }
+  if (player.collides(portal)) {
+     gamestate = "gameover"
+      win = 1;
+  }
+  if (win >= 1 && score >= 0) {
+    fill(0, 0, 0);
+    background(200);
+    textSize(35);
+    text("you skipped the all the stars in the level", 100, 100);
+  }
+  if (win >= 1 && score >= 1) {
+    fill(0, 0, 0);
+    background(200);
+    textSize(35);
+    text("you have 25% stars in the level", 100, 100);
+  }
+  if (win >= 1 && score >= 2) {
+    fill(0, 0, 0);
+    background(200);
+    textSize(35);
+    text("you have 75% stars in the level", 100, 100);
+  }
+  if (win >= 1 && score >= 3) {
+    fill(0, 0, 0);
+    textSize(37);
+    background(200);
+    text("you 100% the level", 100, 100);
+  }
+  if (kb.pressing('r')) {
     gamestate = "gameover"
   }
 }
 function drawGameOver() {
   fill(0, 0, 0);
   textSize(37)
-  background('rgb(49, 168, 95)')
+  background('rgb(179, 62, 62)')
 }
