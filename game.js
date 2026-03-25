@@ -119,10 +119,11 @@ function draw() {
     textSize(35);
     text("time's up", 100, 100)
   }
-  if (gamestate == "play") {
-  } else {
-    timer = 0;
-  }
+  //if (gamestate == "play") {
+  //} 
+ // else () {
+   // timer = 0;
+ // }
 
   //this shows that you complete the stage or skipped points
   if (player.collides(portal)) {
@@ -151,8 +152,9 @@ function draw() {
     textSize(37);
     background(200);
     text("you 100% the level", 100, 100);
+    
   }
-  //this will stop the sprite from moving
+  //this will stop the sprite from moving when timer hits ten.
   if (secondTimer >= 10) {
     timeUp = true;
   }
@@ -169,8 +171,11 @@ function draw() {
     drawGameOver();
   }
 }
+
 function drewMenu() {
   background('rgb(49, 168, 95)');
+    textSize(20);
+   text("space to start", 400, 30)
   player.collider = 's';
   if (kb.pressing('space')) {
     gamestate = "play";
@@ -178,6 +183,7 @@ function drewMenu() {
   console.log("menu");
   console.log(gamestate);
 }
+
 function drawGame() {
   background('rgb(117, 104, 104)');
    player.collider = 'd'
@@ -227,8 +233,16 @@ function drawGame() {
     gamestate = "gameover"
   }
 }
+
 function drawGameOver() {
+background('rgb(179, 62, 62)')
   fill(0, 0, 0);
   textSize(37)
-  background('rgb(179, 62, 62)')
+  text("you press m to go menu", 100, 100);
+
+ // remove.allsprites()
+    player.collider = 's';
+   if (kb.pressing('m')) {
+    gamestate = "menu"
+  }
 }
