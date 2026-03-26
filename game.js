@@ -1,12 +1,13 @@
 
 let score = 0;
+let randNum
 let win = 0;
 let timer = 1;
 let limit = 500;
-let timeUp = false;
 let player;
 let gamestate = "menu";
 //this makes the timer go up in 1 second
+let timeUp = false;
 let secondTimer = 0;
 let intervalID = setInterval(() => {
   secondTimer = secondTimer + 1;
@@ -62,10 +63,25 @@ function setup() {
   box_3.bounciness = 0;
   box_3.color = '56be5b';
 
+  //coins in some parts of the map
+circleGroup = new Group();
+   //circle = new Sprite(width/2, height/2, 50, 'd');
+   const VELARRAY = [-1, 1];
+
+randNum = random(2, 5) * random(VELARRAY);
+  for (i = 0; i < 5; i++) {
+ circle = new Sprite(width/2, height/2, 50, 'd');
+  circle.color= 'rgb(255, 255, 255)'
+  circle.bounciness = 0;
+  circle.friction = 0;
+  circleGroup.add(circle);
+}
   box.collides(player, func2call);
   box_2.collides(player, func3call);
   box_3.collides(player, func4call);
   player.collides(portal, func5call);
+  circleGroup.collides(player, func6call);
+
 }
 //the stars that get collected when player collides with the stars
 // this makes the player get the point and the point disappear after player collects it.
@@ -84,6 +100,9 @@ function func4call(_ssss, _player) {
 function func5call(_ssss, _portal) {
   _ssss.remove();
   win = win + 1;
+};
+function func6call(_ssss, _player) {
+  _ssss.remove();
 };
 
 function draw() {
@@ -114,46 +133,21 @@ function draw() {
   text("the arrow keys are your movements", 400, 30)
   text("timer:" + secondTimer, 10, 50)
   if (secondTimer >= 10) {
+    gamestate = "gameover"
     fill(0, 0, 0);
     background(200);
     textSize(35);
     text("time's up", 100, 100)
   }
-  //if (gamestate == "play") {
-  //} 
- // else () {
-   // timer = 0;
- // }
+  if (gamestate == "play") {
 
+  } 
+  else () => {
+    timer = 0;
+  }
   //this shows that you complete the stage or skipped points
-  if (player.collides(portal)) {
-    win = 1;
-  }
-  if (win >= 1 && score >= 0) {
-    fill(0, 0, 0);
-    background(200);
-    textSize(35);
-    text("you skipped the all the stars in the level", 100, 100);
-  }
-  if (win >= 1 && score >= 1) {
-    fill(0, 0, 0);
-    background(200);
-    textSize(35);
-    text("you have 25% stars in the level", 100, 100);
-  }
-  if (win >= 1 && score >= 2) {
-    fill(0, 0, 0);
-    background(200);
-    textSize(35);
-    text("you have 75% stars in the level", 100, 100);
-  }
-  if (win >= 1 && score >= 3) {
-    fill(0, 0, 0);
-    textSize(37);
-    background(200);
-    text("you 100% the level", 100, 100);
-    
-  }
+
+  
   //this will stop the sprite from moving when timer hits ten.
   if (secondTimer >= 10) {
     timeUp = true;
