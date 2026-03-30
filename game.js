@@ -13,11 +13,10 @@ let currentTime = 0;
 let timeUp = false;
 let secondTimer = 0;
 let intervalID;
-if (gamestart == 1) {
   intervalID = setInterval(() => {
     secondTimer = secondTimer + 1;
   }, 1000); //1000ms timer
-}
+
 
 function setup() {
   cnv = new Canvas(800, 800);
@@ -112,6 +111,9 @@ function func6call(_ssss, _player) {
 };
 
 function draw() {
+if (gamestart != 1) {
+secondTimer = 0}
+
   //background('rgb(117, 104, 104)');
 
   //movement making it to one side very quickly and not go diagonal.
