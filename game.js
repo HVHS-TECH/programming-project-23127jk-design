@@ -1,17 +1,23 @@
 
 let score = 0;
-let randNum
+let randNum;
+let coins;
 let win = 0;
 let timer = 1;
-let limit = 500;
 let player;
 let gamestate = "menu";
-//this makes the timer go up in 1 second
+let gamestart = 0;
+//this makes the timer show up
+let startTime = 0;
+let currentTime = 0;
 let timeUp = false;
 let secondTimer = 0;
-let intervalID = setInterval(() => {
-  secondTimer = secondTimer + 1;
-}, 1000); //1000ms timer
+let intervalID;
+if (gamestart == 1) {
+  intervalID = setInterval(() => {
+    secondTimer = secondTimer + 1;
+  }, 1000); //1000ms timer
+}
 
 function setup() {
   cnv = new Canvas(800, 800);
@@ -64,23 +70,23 @@ function setup() {
   box_3.color = '56be5b';
 
   //coins in some parts of the map
-circleGroup = new Group();
-   //circle = new Sprite(width/2, height/2, 50, 'd');
-   const VELARRAY = [-1, 1];
+  coinsGroup = new Group();
+  //circle = new Sprite(width/2, height/2, 50, 'd');
+  const VELARRAY = [-1, 1];
 
-randNum = random(2, 5) * random(VELARRAY);
+  randNum = random(2, 5) * random(VELARRAY);
   for (i = 0; i < 5; i++) {
- circle = new Sprite(width/2, height/2, 50, 'd');
-  circle.color= 'rgb(255, 255, 255)'
-  circle.bounciness = 0;
-  circle.friction = 0;
-  circleGroup.add(circle);
-}
+    coins = new Sprite(width / 2, height / 2, 50, 'd');
+    coins.color = 'rgb(255, 255, 255)'
+    coins.bounciness = 0;
+    coins.friction = 0;
+    coinsGroup.add(coins);
+  }
   box.collides(player, func2call);
   box_2.collides(player, func3call);
   box_3.collides(player, func4call);
   player.collides(portal, func5call);
-  circleGroup.collides(player, func6call);
+  coinsGroup.collides(player, func6call);
 
 }
 //the stars that get collected when player collides with the stars
@@ -139,22 +145,7 @@ function draw() {
     textSize(35);
     text("time's up", 100, 100)
   }
-  if (gamestate == "play") {
 
-  } 
-  else () => {
-    timer = 0;
-  }
-  //this shows that you complete the stage or skipped points
-
-  
-  //this will stop the sprite from moving when timer hits ten.
-  if (secondTimer >= 10) {
-    timeUp = true;
-  }
-  if (timeUp == true) {
-    player.collider = 's';
-  }
   if (gamestate === "menu") {
     drewMenu();
   }
@@ -168,19 +159,23 @@ function draw() {
 
 function drewMenu() {
   background('rgb(49, 168, 95)');
-    textSize(20);
-   text("space to start", 400, 30)
+  textSize(20);
+  text("space to start", 400, 30)
   player.collider = 's';
+
   if (kb.pressing('space')) {
     gamestate = "play";
+    gamestart = 1;
   }
   console.log("menu");
+  console.log('timerstarted')
   console.log(gamestate);
+  console.log("gamestart = " + gamestart);
 }
 
 function drawGame() {
   background('rgb(117, 104, 104)');
-   player.collider = 'd'
+  player.collider = 'd'
   fill(0);
   textSize(20);
   text("score: " + score, 10, 30);
@@ -195,10 +190,20 @@ function drawGame() {
     textSize(35);
     text("time's up", 100, 100);
   }
-  if (player.collides(portal)) {
-     gamestate = "gameover"
-      win = 1;
+  //if gamestart is 1 then timer starts
+if (gamestart == 1){
+  if (secondTimer >= 10) {
+    timeUp = true;
   }
+  if (timeUp == true) {
+    player.collider = 's';
+  }
+}
+  if (player.collides(portal)) {
+    gamestate = "gameover"
+    win = 1;
+  }
+// score the shows on the screen
   if (win >= 1 && score >= 0) {
     fill(0, 0, 0);
     background(200);
@@ -229,14 +234,14 @@ function drawGame() {
 }
 
 function drawGameOver() {
-background('rgb(179, 62, 62)')
+  background('rgb(179, 62, 62)')
   fill(0, 0, 0);
   textSize(37)
   text("you press m to go menu", 100, 100);
 
- // remove.allsprites()
-    player.collider = 's';
-   if (kb.pressing('m')) {
+  // remove.allsprites()
+  player.collider = 's';
+  if (kb.pressing('m')) {
     gamestate = "menu"
   }
 }
