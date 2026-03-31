@@ -1,7 +1,8 @@
 
 let score = 0;
+let restart = false;
 let randNum;
-let coins;
+let coins = 0;;
 let win = 0;
 let timer = 1;
 let player;
@@ -13,9 +14,9 @@ let currentTime = 0;
 let timeUp = false;
 let secondTimer = 0;
 let intervalID;
-  intervalID = setInterval(() => {
-    secondTimer = secondTimer + 1;
-  }, 1000); //1000ms timer
+intervalID = setInterval(() => {
+  secondTimer = secondTimer + 1;
+}, 1000); //1000ms timer
 
 
 function setup() {
@@ -88,6 +89,26 @@ function setup() {
   coinsGroup.collides(player, func6call);
 
 }
+
+function deleteSprites() {
+  player.remove();
+  box.remove();
+  box_2.remove();
+  box_3.remove();
+  wallBot.remove();
+  wallLH.remove();
+  wallRH.remove();
+  wallRH_2.remove();
+  wallTop.remove();
+  portal.remove();
+  coinsGroup.removeAll();
+  platform_1.remove();
+  platform_2.remove();
+  platform_3.remove();
+  platform_4.remove();
+
+}
+
 //the stars that get collected when player collides with the stars
 // this makes the player get the point and the point disappear after player collects it.
 function func2call(_ssss, _player) {
@@ -108,28 +129,32 @@ function func5call(_ssss, _portal) {
 };
 function func6call(_ssss, _player) {
   _ssss.remove();
+  coins = coins + 1;
 };
 
 function draw() {
-if (gamestart != 1) {
-secondTimer = 0}
+  if (gamestart != 1) {
+    secondTimer = 0
+  }
 
   //background('rgb(117, 104, 104)');
 
-  //movement making it to one side very quickly and not go diagonal.
-  // player.vel.x = 0;
-  // player.vel.y = 0;
-  if (kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left') && !kb.pressing('right')) {
-    player.vel.y = -37;
-  }
-  if (kb.pressing('down') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('left')) {
-    player.vel.y = 37;
-  }
-  if (kb.pressing('left') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('down')) {
-    player.vel.x = -37;
-  }
-  if (kb.pressing('right') && !kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left')) {
-    player.vel.x = 37;
+  if (gamestate === "play") {
+    //movement making it to one side very quickly and not go diagonal.
+    // player.vel.x = 0;
+    // player.vel.y = 0;
+    if (kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left') && !kb.pressing('right')) {
+      player.vel.y = -37;
+    }
+    if (kb.pressing('down') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('left')) {
+      player.vel.y = 37;
+    }
+    if (kb.pressing('left') && !kb.pressing('up') && !kb.pressing('right') && !kb.pressing('down')) {
+      player.vel.x = -37;
+    }
+    if (kb.pressing('right') && !kb.pressing('up') && !kb.pressing('down') && !kb.pressing('left')) {
+      player.vel.x = 37;
+    }
   }
 
   fill(0);
@@ -140,13 +165,7 @@ secondTimer = 0}
   text("welcome" + name, 100, 30);
   text("the arrow keys are your movements", 400, 30)
   text("timer:" + secondTimer, 10, 50)
-  if (secondTimer >= 10) {
-    gamestate = "gameover"
-    fill(0, 0, 0);
-    background(200);
-    textSize(35);
-    text("time's up", 100, 100)
-  }
+  text("coins:" + coins, 10, 150);
 
   if (gamestate === "menu") {
     drewMenu();
@@ -163,8 +182,18 @@ function drewMenu() {
   background('rgb(49, 168, 95)');
   textSize(20);
   text("space to start", 400, 30)
-  player.collider = 's';
 
+ if (restart == true){
+    deleteSprites();
+    setup();
+    secondTimer = 0;
+    score = 0;
+    gamestart = 0;
+    win = 0;
+    coins = 0;
+    timeUp = false;
+    restart = false;
+ }
   if (kb.pressing('space')) {
     gamestate = "play";
     gamestart = 1;
@@ -177,15 +206,15 @@ function drewMenu() {
 
 function drawGame() {
   background('rgb(117, 104, 104)');
-  player.collider = 'd'
   fill(0);
   textSize(20);
   text("score: " + score, 10, 30);
   text("win:" + win, 10, 100);
   var name = " player";
   text("welcome" + name, 100, 30);
-  text("the arrow keys are your movements", 400, 30)
-  text("timer:" + secondTimer, 10, 50)
+  text("the arrow keys are your movements", 400, 30);
+  text("timer:" + secondTimer, 10, 50);
+  text("coins:"+ coins, 10, 150);
   if (secondTimer >= 10) {
     fill(0, 0, 0);
     background(200);
@@ -193,45 +222,59 @@ function drawGame() {
     text("time's up", 100, 100);
   }
   //if gamestart is 1 then timer starts
-if (gamestart == 1){
-  if (secondTimer >= 10) {
-    timeUp = true;
+  if (gamestart == 1) {
+    if (secondTimer >= 10 && win == 0) {
+      timeUp = true;
+    }
+    if (timeUp == true) {
+      gamestate = "gameover"
+    }
   }
-  if (timeUp == true) {
-    player.collider = 's';
-  }
-}
   if (player.collides(portal)) {
     gamestate = "gameover"
     win = 1;
   }
-// score the shows on the screen
+  // score the shows on the screen
   if (win >= 1 && score >= 0) {
     fill(0, 0, 0);
     background(200);
-    textSize(35);
-    text("you skipped the all the stars in the level", 100, 100);
+    textSize(30);
+    text("you skipped the all the stars in the level.", 50, 100);
+    text("press m to restart", 50, 150);
+     if (kb.pressing('m')) {
+    restart = true;
+    gamestate = "menu";
+  }
   }
   if (win >= 1 && score >= 1) {
     fill(0, 0, 0);
     background(200);
     textSize(35);
-    text("you have 25% stars in the level", 100, 100);
+    text("you have 33% stars in the level. press m to restart", 100, 100);
+     if (kb.pressing('m')) {
+    restart = true;
+    gamestate = "menu";
+  }
   }
   if (win >= 1 && score >= 2) {
     fill(0, 0, 0);
     background(200);
     textSize(35);
-    text("you have 75% stars in the level", 100, 100);
+    text("you have 66% stars in the level. press m to restart", 100, 100);
+     if (kb.pressing('m')) {
+    restart = true;
+    gamestate = "menu";
+  }
   }
   if (win >= 1 && score >= 3) {
     fill(0, 0, 0);
     textSize(37);
     background(200);
-    text("you 100% the level", 100, 100);
+    text("you 100% the level. press m to restart", 100, 100);
+     if (kb.pressing('m')) {
+    restart = true;
+    gamestate = "menu";
   }
-  if (kb.pressing('r')) {
-    gamestate = "gameover"
   }
 }
 
@@ -239,11 +282,10 @@ function drawGameOver() {
   background('rgb(179, 62, 62)')
   fill(0, 0, 0);
   textSize(37)
-  text("you press m to go menu", 100, 100);
+  text("you lost. press m to go menu", 100, 100);
 
-  // remove.allsprites()
-  player.collider = 's';
   if (kb.pressing('m')) {
-    gamestate = "menu"
+    restart = true;
+    gamestate = "menu";
   }
 }
